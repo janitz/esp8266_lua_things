@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Beleuchtung</title>
+		<link href="/stdStyle.css" type="text/css" rel="stylesheet">	
+	</head>
+	<body>
+		<h1>Smart Home Licht Dimmung</h1>		
+		<input id="slider" type="range" min="0" max="100" step="1" onchange="showValue(this.value)">
+		<p id="range"></p>
+		<p>
+			<br>
+			<br>
+			<br>
+			<br>
+			<a href="/manuell">--> Manuelle Steuerung</a>
+			<br>
+			<a href="/setup"  >-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setup WIFI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+		</p>
+	</body>
+</html>
+
+<script type="text/javascript">
+	var timr;
+
+	function showValue(newValue)
+	{
+		clearTimeout(timr);
+		timr = setTimeout(function() { sendHell(newValue); }, 100);   
+		document.getElementById("range").innerHTML=newValue;
+	}
+	
+	function sendHell(newValue){
+		var request = new XMLHttpRequest();
+		var url = window.location.href + "/?hell=" + newValue.toString();
+		request.open('GET', url , true);
+		request.send(null);
+	}
+	
+	function changeValue(newValue){
+		document.getElementById("slider").value = newValue;
+		document.getElementById("range").innerHTML = newValue.toString();
+	}
+</script>
+

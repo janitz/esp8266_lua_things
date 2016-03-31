@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Beleuchtung Manuell</title>
+		<link href="/stdStyle.css" type="text/css" rel="stylesheet">
+	</head>
+	<body>
+		<h1>Smart Home Manuell</h1>		
+		<input id="sliderLicht" type="range" min="0" max="100" step="1" onchange="showValue('licht', this.value)">
+		<p id="licht"></p>
+		<input id="sliderServo" type="range" min="0" max="100" step="1" onchange="showValue('servo', this.value)">
+		<p id="servo"></p>
+		<p>
+			<br>
+			<br>
+			<a href="/index">--> Regelung&nbsp;</a>
+			<br>
+			<a href="/setup">--> Setup WIFI</a>
+		</p>
+	</body>
+</html>
+
+<script type="text/javascript">
+	var timr;
+
+	function showValue(newName, newValue)
+	{
+		clearTimeout(timr);
+		timr = setTimeout(function() { sendValue(newName, newValue); }, 100);   
+		document.getElementById(newName).innerHTML= newName + ": " + newValue;
+	}
+	
+	function sendValue(newName, newValue){
+		var request = new XMLHttpRequest();
+		var url = window.location.href + "/?" + newName + "=" + newValue.toString();
+		request.open('GET', url , true);
+		request.send(null);
+	}
+	
+	function changeValue(licht, servo){
+		document.getElementById("sliderLicht").value = licht;
+		document.getElementById("licht").innerHTML = "licht: " + licht.toString();
+		document.getElementById("sliderServo").value = servo;
+		document.getElementById("servo").innerHTML = "servo: " + servo.toString();
+	}
+</script>
+

@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Beleuchtung</title>
+		<style>
+			body{
+				color:#ffffff;
+				background-color:#808080;
+				font-family:courier;
+				text-align:center;
+				padding:0px;
+				margin:0px;
+			}
+			h1{
+				font-size:400%;
+			}
+			p{
+				color:#000000;
+				font-size:150%;
+			}
+		</style>
+	</head>
+	<body onresize="resize_canvas()">
+		<h1>Smart Home Licht Dimmung</h1>
+		<p><canvas id="myCanvas">Your browser doesn't support canvas</canvas></p>
+		<p id="myP">infozzz</p>
+	</body>
+</html>
+
+<script>
+	var hell = 0;
+	var clicked = false;
+	var canvas=document.getElementById("myCanvas");
+	
+	var timr;
+	
+	var cw;
+	var ch;
+	var centerX;
+	var centerY;
+	var lineWidth;
+	var sliderRadius;
+	var barLength;
+	var barWidth;
+	var sliderPosX;
+	
+	
+	canvas.addEventListener("mousedown", down);
+	canvas.addEventListener("touchstart", down);
+	canvas.addEventListener("mouseup", up);
+	canvas.addEventListener("touchend", up);
+	canvas.addEventListener("mouseleave", up);
+	canvas.addEventListener("touchleaveleave", up);
+	canvas.addEventListener("mousemove", move);
+	canvas.addEventListener("touchmove", move);
+	
+	function draw(){
+		var ctx = canvas.getContext('2d');
+		
+		sliderPosX = (barLength * hell / 100);
+		
+		//clear screen
+		ctx.clearRect(0,0,cw,ch);
+		
+		//border of the bar
+		ctx.fillStyle = '#000000';
+		drawCircle(ctx, 
+			sliderRadius, 
+			centerY, 
+			barWidth / 2);
+		drawCircle(ctx, 
+			cw - sliderRadius, 
+			centerY, 
+			barWidth / 2);
+		ctx.fillRect(
+			sliderRadius, 
+			centerY - (barWidth / 2),
+			barLength,
+			barWidth);
+		
+		//body of the bar (left)
+		ctx.fillStyle = 'hsl(0, 0%, ' + hell + '%)';
+		drawCircle(ctx, 
+			sliderRadius, 
+			centerY, 
+			(barWidth / 2) - lineWidth);
+		ctx.fillRect(
+			sliderRadius, 
+			centerY - (barWidth / 2) + lineWidth,
+			sliderPosX,
+			barWidth - (2 * lineWidth));
+		
+		//slider
+		ctx.fillStyle = '#000000';
+		drawCircle(ctx, 
+			sliderPosX + sliderRadius, 
+			centerY, 
+			sliderRadius);
+			ctx.fillStyle = '#ffffff';
+		drawCircle(ctx, 
+			sliderPosX + sliderRadius, 
+			centerY, 
+			sliderRadius - lineWidth);
+		
+		
+		ctx.strokeStyle = '#000000';
+		ctx.lineWidth = lineWidth;
+		ctx.font = barWidth * 3 + "px Courier";
+		ctx.textAlign = "center";
+		ctx.strokeText(Math.floor(hell).toString(), sliderPosX + sliderRadius, centerY + (barWidth*0.9)); 
+		
+	}
+	
+	function sendHell(){
+		var request = new XMLHttpRequest();
+		var url = window.location.href + "/?" + "hell=" + Math.floor(hell).toString();
+		request.open('GET', url , true);
+		request.send(null);
+		document.getElementById("myP").innerHTML = Math.floor(hell).toString();
+	}
+	
+	function drawCircle(ctx, cX, cY, rad){
+		ctx.beginPath();
+		ctx.arc(cX, cY, rad, 0, 2 * Math.PI, false);
+		ctx.fill();
+		ctx.closePath();
+	}
+	
+	function move(event) {
+		if(clicked){
+			var pos = getPos(canvas, event);
+			hell = ((pos.x - sliderRadius) * 100 / barLength);
+			hell = (hell > 100) ? 100 : hell;
+			hell = (hell < 0) ? 0 : hell;
+			
+			clearTimeout(timr);
+			timr = setTimeout(function() { sendHell(); }, 50);    
+			
+			draw();
+		}
+	}
+	
+	function down(event) {
+		clicked = true;
+		move(event);
+	}
+	
+	function up(event) {
+		clicked = false;
+	}
+	
+	
+	function getPos(canvas, evt){
+		var rect = canvas.getBoundingClientRect();
+		var out = {x:0, y:0};
+		if(
+			evt.type == 'touchstart' ||
+			evt.type == 'touchmove' ||
+			evt.type == 'touchend' ||
+			evt.type == 'touchcancel'){
+
+			var touch = evt.originalEvent.touches[0] || evt.originalEvent.changedTouches[0];
+			out.x = touch.pageX - rect.left;
+			out.y = touch.pageY - rect.top;
+		} else if (
+			evt.type == 'mousedown' || 
+			evt.type == 'mouseup' || 
+			evt.type == 'mousemove' || 
+			evt.type == 'mouseover' || 
+			evt.type=='mouseout' ||
+			evt.type=='mouseenter' ||
+			evt.type=='mouseleave') {
+
+			out.x = evt.pageX - rect.left;
+			out.y = evt.pageY - rect.top;
+		}
+		return out;
+    };
+	 
+	
+	function resize_canvas(){
+		canvas = document.getElementById("myCanvas");
+		canvas.width = window.innerWidth * 0.8;
+		canvas.height = window.innerWidth * 0.8 / 4;
+		
+		cw = canvas.width;
+		ch = canvas.height;
+		centerX = cw / 2;
+		centerY = ch / 2;
+		lineWidth = cw / 300;
+		sliderRadius = ch / 5;
+		barLength = cw - (2 * sliderRadius);
+		barWidth = sliderRadius / 3;
+		sliderPosX = (barLength * hell / 100);
+		
+		draw();
+	}
+	
+	resize_canvas();
+</script>

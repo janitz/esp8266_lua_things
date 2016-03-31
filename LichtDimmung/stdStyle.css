@@ -1,0 +1,178 @@
+body{
+	color:#ffffff;
+	background-color:#808080;
+	font-family:courier;
+	text-align:center;
+	padding:0px;
+	margin:0px;
+}
+
+h1{
+	font-size:400%;
+}
+
+p{
+	color:#000000;
+	font-size:200%;
+	font-weight: bold;
+}
+
+a{
+	font-size:100%;
+}
+
+a:link{
+	color:black;
+	background-color:transparent; 
+	text-decoration:none;
+}
+
+a:visited{
+	color:black; 
+	background-color:transparent; 
+	text-decoration:none;
+}
+a:hover{
+	color:black; 
+	background-color:transparent; 
+	text-decoration:none;
+}
+a:active{
+	color:black; 
+	background-color:transparent; 
+	text-decoration:none;
+}
+
+input[type=range] {
+	-webkit-appearance: none;
+	margin-left: 20%;
+	margin-right: 20%;
+	width: 60%;
+	height: 110px;
+	background: transparent;
+}
+
+input[type=range]:focus {
+	outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+	width: 100%;
+	height: 20px;
+	border-radius: 10px;
+	border: 5px solid #000000;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	border: 5px solid #000000;
+	height: 100px;
+	width: 100px;
+	border-radius: 50px;
+	background: #ffffff;
+	-webkit-appearance: none;
+	margin-top: -45px;
+}
+
+input[type=range]::-moz-range-track {
+	width: 100%;
+	height: 10px;
+	border-radius: 10px;
+	border: 5px solid #000000;
+}
+
+input[type=range]::-moz-range-thumb {
+	border: 5px solid #000000;
+	height: 100px;
+	width: 100px;
+	border-radius: 75px;
+	background: #ffffff;
+}
+
+input[type=range]::-ms-track {
+	width: 100%;
+	height: 20px;
+	background: transparent;
+	border-color: transparent;
+	border-width: 20px 0;
+	color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+	border: 5px solid #000000;
+	border-radius: 10px;
+}
+
+input[type=range]::-ms-fill-upper {
+	border: 5px solid #000000;
+	border-radius: 10px;
+}
+
+input[type=range]::-ms-thumb {
+	border: 5px solid #000000;
+	height: 100px;
+	width: 100px;
+	border-radius: 50px;
+	background: #ffffff;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+	background: #ffffff;
+}
+input[type=range]:focus::-ms-fill-upper {
+	background: #ffffff;
+}
+
+form{
+	color:#000000;
+	font-size:150%;
+}
+
+.setupP{
+	color:#000000;
+	font-size:150%;
+	font-weight: mormal;
+}
+
+.textInput{
+	font-family:courier;
+	font-size:100%;
+	width:60%;
+	color:#000000;
+	border:#000000 1px solid;
+	border-radius: 8px 8px 8px 8px;
+	background-color:#ffffff;
+	margin:8px; 
+}
+
+.button{
+	font-family:courier;
+	font-size:100%;
+	color:#000000;
+	border:#000000 1px solid;
+	border-radius: 8px 8px 8px 8px;
+	background-color:#808080;
+	margin:8px; 
+}
+
+.button:hover {
+	background-color:#606060;				
+}
+
+.myTable{
+	font-family:courier;
+	font-size:150%;
+	width:60%;
+	margin-left:20%;
+	margin-right:20%;
+	color:#000000;				
+}
+
+.myTable td{ 
+	margin:8px; 
+	border:#000000 1px solid;
+	border-radius: 8px 8px 8px 8px;
+}
+
+.myTable td:hover {
+	background-color:#606060;				
+}

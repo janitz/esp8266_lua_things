@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Setup Beleuchtung Wifi</title>
+		<link href="/stdStyle.css" type="text/css" rel="stylesheet">	
+	</head>
+	<body>
+		<h1>Setup Beleuchtung Wifi</h1>
+		<p id="currIP" class="setupP"></p>
+		<p class="setupP">available APs:</p>
+		<table class="myTable" id="myTable"></table>
+		<form>
+			<br>
+			SSID:<br>
+			<input id="ssid" class="textInput" type="text" name="ssid" maxlength="200"><br>
+			Password:<br>
+			<input class="textInput" type="text" name="pwd" maxlength="200"><br>
+			<input class="button" type="submit" value=" Send  ">
+		</form>
+		<form>
+			<button type='button' class="button" onclick="restart()">Restart</button>
+		</form>
+		<p>
+			<br>
+			<a href="/index">-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regelung&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			<br>
+			<a href="/manuell">--> Manuelle Steuerung</a>
+		</p>
+	</body>
+</html>
+
+<script>
+	function cellClicked(event) {
+		document.getElementById("ssid").value=document.getElementById(event.id).innerHTML;
+	}
+	
+	function restart(){
+		var request = new XMLHttpRequest();
+		var url = window.location.href + "/?restart=now";
+		request.open('GET', url , true);
+		request.send(null);
+	}
+</script>
+<!-- <meta http-equiv="refresh" content="0; url=http://example.com/" />  -->
