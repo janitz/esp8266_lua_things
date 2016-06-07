@@ -7,3 +7,4 @@ most is stolen from somewhere
 ###interesting links: 
  - [https://github.com/nodemcu/nodemcu-flasher](https://github.com/nodemcu/nodemcu-flasher)
  - [https://github.com/nodemcu/nodemcu-firmware/releases](https://github.com/nodemcu/nodemcu-firmware/releases) 
+ - [https://nodemcu.readthedocs.io/en/master/](https://nodemcu.readthedocs.io/en/master/) 
